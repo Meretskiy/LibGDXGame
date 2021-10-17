@@ -42,5 +42,6 @@ public class MyStarGame extends ApplicationAdapter {
 	public void dispose () { //выгрузка объектов из ппамяти по завершению работы
 		batch.dispose();
 		img.dispose();
+		background.dispose();
 	}
 }
