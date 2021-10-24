@@ -38,7 +38,7 @@ public class MenuScreen extends BaseScreen {
         super.render(delta);
         batch.begin();
         background.draw(batch);
-//        batch.draw(img, pos.x, pos.y, 0.5f, 0.5f);
+        batch.draw(img, pos.x, pos.y, 0.1f, 0.1f);
         batch.end();
     }
 

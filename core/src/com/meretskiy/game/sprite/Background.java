@@ -8,7 +8,7 @@ import com.meretskiy.game.math.Rect;
 public class Background extends Sprite {
 
     public Background(Texture texture) {
-        super(new TextureRegion());
+        super(new TextureRegion(texture));
     }
 
     @Override
