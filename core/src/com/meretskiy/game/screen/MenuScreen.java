@@ -5,6 +5,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.base.BaseScreen;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.sprite.Background;
+import com.meretskiy.game.sprite.Rocket;
 
 /**
  * Экран меню
@@ -13,9 +14,9 @@ public class MenuScreen extends BaseScreen {
 
     private Texture bg;
     private Texture img;
-    private Vector2 pos;
 
     private Background background;
+    private Rocket rocket;
 
     @Override
     public void show() {
@@ -24,21 +25,23 @@ public class MenuScreen extends BaseScreen {
         background = new Background(bg);
 
         img = new Texture("rocket.png");
-        pos = new Vector2();
+        rocket = new Rocket(img);
     }
 
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
         background.resize(worldBounds);
+        rocket.resize(worldBounds);
     }
 
     @Override
     public void render(float delta) {
+        rocket.update(delta);
         super.render(delta);
         batch.begin();
         background.draw(batch);
-        batch.draw(img, pos.x, pos.y, 0.1f, 0.1f);
+        rocket.draw(batch);
         batch.end();
     }
 
@@ -51,7 +54,7 @@ public class MenuScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
-        pos.set(touch);
+        rocket.touchDown(touch, pointer, button);
         return super.touchDown(touch, pointer, button);
     }
 }
