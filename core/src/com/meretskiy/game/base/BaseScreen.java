@@ -59,9 +59,9 @@ import com.meretskiy.game.math.Rect;
  */
 public class BaseScreen implements Screen, InputProcessor {
 
-    public Rect screenBounds; // границы игрового мира в пикселях
-    public Rect worldBounds;  // мировая система координат
-    public Rect glBounds;     // координатная сетка OpenGL
+    private Rect screenBounds; // границы игрового мира в пикселях
+    private Rect worldBounds;  // мировая система координат
+    private Rect glBounds;     // координатная сетка OpenGL
 
     private Matrix4 worldToGl; // матрица проекции из мировой системы в OpenGl
     private Matrix3 screenToWorld; // матрица проекции из пикселей в мировую систему для событий
@@ -97,8 +97,8 @@ public class BaseScreen implements Screen, InputProcessor {
         float aspect = width / (float) height;
         worldBounds.setHeight(1f);
         worldBounds.setWidth(1f * aspect);
-        MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds); //конфигурируем матрицу проекции
         MatrixUtils.calcTransitionMatrix(screenToWorld, screenBounds, worldBounds);
+        MatrixUtils.calcTransitionMatrix(worldToGl, worldBounds, glBounds); //конфигурируем матрицу проекции
         batch.setProjectionMatrix(worldToGl); // устанавливаем матрицу проекции
         resize(worldBounds);
     }
