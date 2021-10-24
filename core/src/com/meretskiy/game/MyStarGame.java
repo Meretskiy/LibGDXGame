@@ -59,8 +59,6 @@ import com.meretskiy.game.screen.MenuScreen;
  *         System.out.println(Math.acos(v1.dot(v2)));
 
  *
- *
- *     @Override
  *     public void render() { //отрисовка и вся логика, срабатывает 60 раз в секунду
  *         ScreenUtils.clear(Color.BLACK); //очистка экрана или в RGB или через Color.CLEAR
  *         batch.begin(); // начало списка на отрисовку
@@ -73,7 +71,6 @@ import com.meretskiy.game.screen.MenuScreen;
  *         y++;
  *     }
  *
- *     @Override
  *     public void dispose() { //выгрузка объектов из ппамяти по завершению работы
  *         batch.dispose();
  *         img.dispose();
@@ -85,6 +82,6 @@ public class MyStarGame extends Game {
 
     @Override
     public void create() {
-        setScreen(new MenuScreen()); //устанавливаем в качестве текущего экрана
+        setScreen(new MenuScreen(this)); //устанавливаем в качестве текущего экрана
     }
 }

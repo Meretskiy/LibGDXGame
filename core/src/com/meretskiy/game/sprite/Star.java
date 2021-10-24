@@ -19,7 +19,9 @@ public class Star extends Sprite {
     @Override
     public void resize(Rect worldBounds) {
         this.worldBounds = worldBounds;
-        setHeightProportion(Rnd.nextFloat(0.005f, 0.015f)); // установка рандомного размера
+        float height = v.y * 0.06f; // подбор размера звезды в замисимости от сорости
+        setHeightProportion(height);
+//        setHeightProportion(Rnd.nextFloat(0.005f, 0.015f)); // установка рандомного размера
         float x = Rnd.nextFloat(worldBounds.getLeft(), worldBounds.getRight());
         float y = Rnd.nextFloat(worldBounds.getBottom(), worldBounds.getTop());
         pos.set(x, y); // установка рандомной позиции
