@@ -6,6 +6,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.base.BaseScreen;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.sprite.Background;
+import com.meretskiy.game.sprite.Ship;
 import com.meretskiy.game.sprite.Star;
 
 public class GameScreen extends BaseScreen {
@@ -17,6 +18,7 @@ public class GameScreen extends BaseScreen {
 
     private Background background;
     private Star[] stars;
+    private Ship ship;
 
     @Override
     public void show() {
@@ -28,6 +30,7 @@ public class GameScreen extends BaseScreen {
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
         }
+        ship = new Ship(atlas);
     }
 
     @Override
@@ -44,6 +47,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.resize(worldBounds);
         }
+        ship.resize(worldBounds);
     }
 
     @Override
@@ -55,6 +59,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean keyDown(int keycode) {
+        ship.keyDown(keycode);
         return super.keyDown(keycode);
     }
 
@@ -65,6 +70,7 @@ public class GameScreen extends BaseScreen {
 
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
+        ship.touchDown(touch, pointer, button);
         return super.touchDown(touch, pointer, button);
     }
 
@@ -77,6 +83,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.update(delta);
         }
+        ship.update(delta);
     }
 
     private void draw() {
@@ -85,6 +92,7 @@ public class GameScreen extends BaseScreen {
         for (Star star : stars) {
             star.draw(batch);
         }
+        ship.draw(batch);
         batch.end();
     }
 }
