@@ -4,6 +4,7 @@ import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.math.Rect;
+import com.meretskiy.game.util.Regions;
 
 /**
  * Спрайт - это стекстура с какой - либо логикой
@@ -11,7 +12,7 @@ import com.meretskiy.game.math.Rect;
 public class Sprite extends Rect {
 
     protected float angle;              // уголл поворота спрайта
-    protected float scale = 1f ;        // величина скалирования спрайта
+    protected float scale = 1f;        // величина скалирования спрайта
     protected TextureRegion[] regions;  // массив тектур
     protected int frame;                // текущий кадр
 
@@ -21,6 +22,10 @@ public class Sprite extends Rect {
         }
         regions = new TextureRegion[1];
         regions[0] = region;
+    }
+
+    public Sprite(TextureRegion region, int rows, int cols, int frames) {
+        this.regions = Regions.split(region, rows, cols, frames);
     }
 
     /**
@@ -41,6 +46,7 @@ public class Sprite extends Rect {
 
     /**
      * Логика обновления спрайта
+     *
      * @param delta
      */
     public void update(float delta) {
@@ -49,6 +55,7 @@ public class Sprite extends Rect {
 
     /**
      * Отрисовка спрайта
+     *
      * @param batch
      */
     public void draw(SpriteBatch batch) {
