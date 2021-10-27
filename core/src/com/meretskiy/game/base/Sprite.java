@@ -15,6 +15,11 @@ public class Sprite extends Rect {
     protected float scale = 1f;        // величина скалирования спрайта
     protected TextureRegion[] regions;  // массив тектур
     protected int frame;                // текущий кадр
+    private boolean destroyed;
+
+    public Sprite() {
+
+    }
 
     public Sprite(TextureRegion region) { // конструктор для спрайта сосотоящего из одной текстуры
         if (region == null) {
@@ -103,5 +108,17 @@ public class Sprite extends Rect {
 
     public void setScale(float scale) {
         this.scale = scale;
+    }
+
+    public void destroy() {
+        destroyed = true;
+    }
+
+    public void flushDestroy() {
+        destroyed = false;
+    }
+
+    public boolean isDestroyed() {
+        return destroyed;
     }
 }
