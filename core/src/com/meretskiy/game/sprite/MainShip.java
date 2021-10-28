@@ -1,12 +1,15 @@
 package com.meretskiy.game.sprite;
 
 import com.badlogic.gdx.Input;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.graphics.g2d.TextureRegion;
 import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.base.Sprite;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
+
+import java.util.Date;
 
 public class MainShip extends Sprite {
 
@@ -20,6 +23,7 @@ public class MainShip extends Sprite {
     private final Vector2 bulletV;
     private final float bulletHeight;
     private final int damage;
+    private final Sound sound;
 
     private final Vector2 v;  // постоянная скорость
     private final Vector2 v0; // константное значение вектора направления
@@ -31,7 +35,7 @@ public class MainShip extends Sprite {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound sound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
@@ -40,6 +44,7 @@ public class MainShip extends Sprite {
         this.damage = 1;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
+        this.sound = sound;
     }
 
     @Override
@@ -53,6 +58,10 @@ public class MainShip extends Sprite {
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
+        if (new Date().getTime() %15 == 0) {
+            shoot();
+            sound.play(0.1f);
+        }
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();

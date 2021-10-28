@@ -3,6 +3,8 @@ package com.meretskiy.game.base;
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.InputProcessor;
 import com.badlogic.gdx.Screen;
+import com.badlogic.gdx.audio.Music;
+import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Color;
 import com.badlogic.gdx.graphics.g2d.SpriteBatch;
 import com.badlogic.gdx.math.Matrix3;
@@ -69,10 +71,16 @@ public class BaseScreen implements Screen, InputProcessor {
     private final Vector2 touch = new Vector2();
 
     protected SpriteBatch batch;
+    protected Music music;
+    protected Sound sound;
 
     @Override
     public void show() {
         System.out.println("show");
+        music = Gdx.audio.newMusic(Gdx.files.internal("sounds/music.mp3"));
+        music.setVolume(0.7f);
+        music.setLooping(true);
+        music.play();
         screenBounds = new Rect();
         worldBounds = new Rect();
         glBounds = new Rect(0, 0, 1, 1);
@@ -128,6 +136,7 @@ public class BaseScreen implements Screen, InputProcessor {
     public void dispose() {
         System.out.println("dispose");
         batch.dispose();
+        music.dispose();
     }
 
     @Override

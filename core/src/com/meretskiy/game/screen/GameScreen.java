@@ -1,5 +1,6 @@
 package com.meretskiy.game.screen;
 
+import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.TextureAtlas;
 import com.badlogic.gdx.math.Vector2;
@@ -7,7 +8,6 @@ import com.meretskiy.game.base.BaseScreen;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
 import com.meretskiy.game.sprite.Background;
-import com.meretskiy.game.sprite.Bullet;
 import com.meretskiy.game.sprite.MainShip;
 import com.meretskiy.game.sprite.Star;
 
@@ -27,6 +27,7 @@ public class GameScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
+        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("sci-fi-space.jpeg");
         background = new Background(bg);
@@ -35,7 +36,7 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
-        mainShip = new MainShip(atlas, bulletPool);
+        mainShip = new MainShip(atlas, bulletPool, sound);
     }
 
     @Override
@@ -62,6 +63,7 @@ public class GameScreen extends BaseScreen {
         atlas.dispose();
         bg.dispose();
         bulletPool.dispose();
+        sound.dispose();
     }
 
     @Override
