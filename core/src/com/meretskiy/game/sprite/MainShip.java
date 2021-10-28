@@ -9,9 +9,9 @@ import com.meretskiy.game.base.Sprite;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
 
-import java.util.Date;
-
 public class MainShip extends Sprite {
+
+    private static final float RELOAD_INTERVAL = 0.2f;
 
     private static final float V_LEN = 0.0001f;
     private static final float SIZE = 0.1f;
@@ -23,10 +23,12 @@ public class MainShip extends Sprite {
     private final Vector2 bulletV;
     private final float bulletHeight;
     private final int damage;
-    private final Sound sound;
+    private final Sound laserSound;
 
     private final Vector2 v;  // постоянная скорость
     private final Vector2 v0; // константное значение вектора направления
+
+    private float reloadTimer;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -35,7 +37,7 @@ public class MainShip extends Sprite {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound sound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound laserSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
@@ -44,7 +46,7 @@ public class MainShip extends Sprite {
         this.damage = 1;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
-        this.sound = sound;
+        this.laserSound = laserSound;
     }
 
     @Override
@@ -58,9 +60,10 @@ public class MainShip extends Sprite {
     @Override
     public void update(float delta) {
         pos.mulAdd(v, delta);
-        if (new Date().getTime() %15 == 0) {
+        reloadTimer += delta;
+        if (reloadTimer >= RELOAD_INTERVAL) {
+            reloadTimer = 0f;
             shoot();
-            sound.play(0.1f);
         }
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
@@ -167,5 +170,6 @@ public class MainShip extends Sprite {
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, bulletHeight, damage);
+        laserSound.play(0.1f);
     }
 }

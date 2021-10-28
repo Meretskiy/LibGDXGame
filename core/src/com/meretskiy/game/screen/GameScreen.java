@@ -27,7 +27,7 @@ public class GameScreen extends BaseScreen {
     @Override
     public void show() {
         super.show();
-        sound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("sci-fi-space.jpeg");
         background = new Background(bg);
@@ -36,7 +36,7 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
-        mainShip = new MainShip(atlas, bulletPool, sound);
+        mainShip = new MainShip(atlas, bulletPool, laserSound);
     }
 
     @Override
@@ -63,7 +63,7 @@ public class GameScreen extends BaseScreen {
         atlas.dispose();
         bg.dispose();
         bulletPool.dispose();
-        sound.dispose();
+        laserSound.dispose();
     }
 
     @Override

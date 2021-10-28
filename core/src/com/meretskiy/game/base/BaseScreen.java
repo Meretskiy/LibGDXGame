@@ -72,7 +72,7 @@ public class BaseScreen implements Screen, InputProcessor {
 
     protected SpriteBatch batch;
     protected Music music;
-    protected Sound sound;
+    protected Sound laserSound;
 
     @Override
     public void show() {
