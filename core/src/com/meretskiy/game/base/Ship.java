@@ -38,6 +38,7 @@ public class Ship extends Sprite {
     public void update(float delta) {
         if (getTop() > worldBounds.getTop()) {
             pos.mulAdd(emergingV, delta);
+            reloadTimer = 5f;
         } else {
             pos.mulAdd(v, delta);
         }
