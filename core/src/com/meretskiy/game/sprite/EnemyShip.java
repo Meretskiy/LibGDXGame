@@ -9,10 +9,11 @@ import com.meretskiy.game.pool.BulletPool;
 
 public class EnemyShip extends Ship {
 
-    public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound bulletSound) {
+    public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound bulletSound, Sound explosionSound) {
         this.bulletPool = bulletPool;
         this.worldBounds = worldBounds;
         this.bulletSound = bulletSound;
+        this.explosionSound = explosionSound;
         this.bulletV = new Vector2();
         this.bulletPos = new Vector2();
         this.v = new Vector2();

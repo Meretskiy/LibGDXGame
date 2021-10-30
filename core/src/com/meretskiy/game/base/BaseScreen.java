@@ -74,6 +74,7 @@ public class BaseScreen implements Screen, InputProcessor {
     protected Music music;
     protected Sound laserSound;
     protected Sound bulletSound;
+    protected Sound explosionSound;
 
     @Override
     public void show() {
