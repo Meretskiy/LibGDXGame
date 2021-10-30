@@ -17,6 +17,7 @@ public class EnemyShip extends Ship {
         this.bulletPos = new Vector2();
         this.v = new Vector2();
         this.v0 = new Vector2();
+        this.emergingV = new Vector2();
     }
 
     @Override
@@ -31,6 +32,7 @@ public class EnemyShip extends Ship {
     public void set(
             TextureRegion[] regions,
             Vector2 v,
+            Vector2 emergingV,
             TextureRegion bulletRegion,
             float bulletHeight,
             Vector2 bulletV,
@@ -41,6 +43,7 @@ public class EnemyShip extends Ship {
     ) {
         this.regions = regions;
         this.v.set(v);
+        this.emergingV.set(emergingV);
         this.bulletRegion = bulletRegion;
         this.bulletHeight = bulletHeight;
         this.bulletV.set(bulletV);

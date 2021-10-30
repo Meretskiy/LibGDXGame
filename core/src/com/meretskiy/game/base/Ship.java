@@ -20,6 +20,7 @@ public class Ship extends Sprite {
 
     protected Vector2 v;  // постоянная скорость
     protected Vector2 v0; // константное значение вектора направления
+    protected Vector2 emergingV;  // скорость появления
 
     protected float reloadTimer;
     protected float reloadInterval;
@@ -34,9 +35,13 @@ public class Ship extends Sprite {
 
     @Override
     public void update(float delta) {
-        pos.mulAdd(v, delta);
+        if (getTop() > worldBounds.getTop()) {
+            pos.mulAdd(emergingV, delta);
+        } else {
+            pos.mulAdd(v, delta);
+        }
         reloadTimer += delta;
-        if (reloadTimer >= reloadInterval) {
+        if (reloadTimer >= reloadInterval && getTop() < worldBounds.getTop()) {
             reloadTimer = 0f;
             shoot();
         }
