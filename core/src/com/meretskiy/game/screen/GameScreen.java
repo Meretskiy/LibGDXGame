@@ -35,6 +35,7 @@ public class GameScreen extends BaseScreen {
         super.show();
         laserSound = Gdx.audio.newSound(Gdx.files.internal("sounds/laser.wav"));
         bulletSound = Gdx.audio.newSound(Gdx.files.internal("sounds/bullet.wav"));
+        explosionSound = Gdx.audio.newSound(Gdx.files.internal("sounds/explosion.wav"));
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("sci-fi-space.jpeg");
         background = new Background(bg);
@@ -43,7 +44,7 @@ public class GameScreen extends BaseScreen {
             stars[i] = new Star(atlas);
         }
         bulletPool = new BulletPool();
-        enemyPool = new EnemyPool(bulletPool, worldBounds, bulletSound);
+        enemyPool = new EnemyPool(bulletPool, worldBounds, bulletSound, explosionSound);
         mainShip = new MainShip(atlas, bulletPool, laserSound);
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
     }
@@ -75,6 +76,7 @@ public class GameScreen extends BaseScreen {
         laserSound.dispose();
         enemyPool.dispose();
         bulletSound.dispose();
+        explosionSound.dispose();
     }
 
     @Override
@@ -112,6 +114,7 @@ public class GameScreen extends BaseScreen {
         for (EnemyShip ship : enemyPool.getActiveObjects()) {
                 if (!ship.isOutside(mainShip)) {
                     ship.destroy();
+                    explosionSound.play(0.1f);
                 }
         }
     }

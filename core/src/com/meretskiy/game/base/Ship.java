@@ -11,6 +11,7 @@ public class Ship extends Sprite {
 
     protected BulletPool bulletPool;
     protected Sound bulletSound;
+    protected Sound explosionSound;
     protected TextureRegion bulletRegion;
     protected Vector2 bulletV;
     protected Vector2 bulletPos;
