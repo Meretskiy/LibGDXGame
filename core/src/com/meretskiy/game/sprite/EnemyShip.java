@@ -27,6 +27,7 @@ public class EnemyShip extends Ship {
 //        bulletPos.set(this.pos.x, getBottom()); // стрельба из носа коробля
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
+            explosionSound.play(0.1f);
         }
     }
 
