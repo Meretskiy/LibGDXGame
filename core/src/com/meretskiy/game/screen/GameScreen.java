@@ -9,6 +9,7 @@ import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
 import com.meretskiy.game.pool.EnemyPool;
 import com.meretskiy.game.sprite.Background;
+import com.meretskiy.game.sprite.EnemyShip;
 import com.meretskiy.game.sprite.MainShip;
 import com.meretskiy.game.sprite.Star;
 import com.meretskiy.game.util.EnemyEmitter;
@@ -108,6 +109,11 @@ public class GameScreen extends BaseScreen {
         enemyPool.updateActiveObjects(delta);
         mainShip.update(delta);
         enemyEmitter.generate(delta);
+        for (EnemyShip ship : enemyPool.getActiveObjects()) {
+                if (!ship.isOutside(mainShip)) {
+                    ship.destroy();
+                }
+        }
     }
 
     private void freeAllDestroyed() {

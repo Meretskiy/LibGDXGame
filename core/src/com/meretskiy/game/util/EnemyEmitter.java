@@ -44,6 +44,7 @@ public class EnemyEmitter {
     private final Vector2 enemySmallV = new Vector2(0f, -0.2f);
     private final Vector2 enemyMediumV = new Vector2(0f, -0.03f);
     private final Vector2 enemyBigV = new Vector2(0f, -0.005f);
+    private final Vector2 emergingV = new Vector2(0f, -0.4f);
     private final Vector2 enemySmallBulletV = new Vector2(0f, -0.3f);
     private final Vector2 enemyMediumBulletV = new Vector2(0f, -0.25f);
     private final Vector2 enemyBigBulletV = new Vector2(0f, -0.3f);
@@ -69,6 +70,7 @@ public class EnemyEmitter {
                 enemyShip.set(
                         enemySmallRegions,
                         enemySmallV,
+                        emergingV,
                         bulletRegion,
                         ENEMY_SMALL_BULLET_HEIGHT,
                         enemySmallBulletV,
@@ -81,6 +83,7 @@ public class EnemyEmitter {
                 enemyShip.set(
                         enemyMediumRegions,
                         enemyMediumV,
+                        emergingV,
                         bulletRegion,
                         ENEMY_MEDIUM_BULLET_HEIGHT,
                         enemyMediumBulletV,
@@ -93,6 +96,7 @@ public class EnemyEmitter {
                 enemyShip.set(
                         enemyBigRegions,
                         enemyBigV,
+                        emergingV,
                         bulletRegion,
                         ENEMY_BIG_BULLET_HEIGHT,
                         enemyBigBulletV,
