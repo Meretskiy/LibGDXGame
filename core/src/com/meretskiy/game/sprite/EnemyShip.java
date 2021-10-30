@@ -14,6 +14,7 @@ public class EnemyShip extends Ship {
         this.worldBounds = worldBounds;
         this.bulletSound = bulletSound;
         this.bulletV = new Vector2();
+        this.bulletPos = new Vector2();
         this.v = new Vector2();
         this.v0 = new Vector2();
     }
@@ -21,6 +22,7 @@ public class EnemyShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+//        bulletPos.set(this.pos.x, getBottom()); // стрельба из носа коробля
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
         }

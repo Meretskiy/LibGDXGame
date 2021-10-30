@@ -13,6 +13,7 @@ public class Ship extends Sprite {
     protected Sound bulletSound;
     protected TextureRegion bulletRegion;
     protected Vector2 bulletV;
+    protected Vector2 bulletPos;
     protected float bulletHeight;
     protected int damage;
     protected int hp;
@@ -39,11 +40,12 @@ public class Ship extends Sprite {
             reloadTimer = 0f;
             shoot();
         }
+        bulletPos.set(pos);
     }
 
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
-        bullet.set(this, bulletRegion, this.pos, bulletV, worldBounds, bulletHeight, damage);
+        bullet.set(this, bulletRegion, bulletPos, bulletV, worldBounds, bulletHeight, damage);
         bulletSound.play(0.1f);
     }
 

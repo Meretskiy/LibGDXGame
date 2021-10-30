@@ -28,6 +28,7 @@ public class MainShip extends Ship {
         this.bulletPool = bulletPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletV = new Vector2(0, 0.5f);
+        this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
         this.damage = 1;
         this.hp = 100;
@@ -48,6 +49,7 @@ public class MainShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
+        bulletPos.set(this.pos.x, getTop());
         if (getRight() > worldBounds.getRight()) {
             setRight(worldBounds.getRight());
             stop();
