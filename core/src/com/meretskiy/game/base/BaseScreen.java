@@ -62,7 +62,7 @@ import com.meretskiy.game.math.Rect;
 public class BaseScreen implements Screen, InputProcessor {
 
     private Rect screenBounds; // границы игрового мира в пикселях
-    private Rect worldBounds;  // мировая система координат
+    protected Rect worldBounds;  // мировая система координат
     private Rect glBounds;     // координатная сетка OpenGL
 
     private Matrix4 worldToGl; // матрица проекции из мировой системы в OpenGl
@@ -73,6 +73,7 @@ public class BaseScreen implements Screen, InputProcessor {
     protected SpriteBatch batch;
     protected Music music;
     protected Sound laserSound;
+    protected Sound bulletSound;
 
     @Override
     public void show() {
