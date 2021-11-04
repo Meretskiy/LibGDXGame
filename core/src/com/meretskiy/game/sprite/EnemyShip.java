@@ -6,14 +6,16 @@ import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.base.Ship;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
+import com.meretskiy.game.pool.ExplosionPool;
 
 public class EnemyShip extends Ship {
 
-    public EnemyShip(BulletPool bulletPool, Rect worldBounds, Sound bulletSound, Sound explosionSound) {
+    public EnemyShip(BulletPool bulletPool, ExplosionPool explosionPool,
+                     Rect worldBounds, Sound bulletSound) {
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.worldBounds = worldBounds;
         this.bulletSound = bulletSound;
-        this.explosionSound = explosionSound;
         this.bulletV = new Vector2();
         this.bulletPos = new Vector2();
         this.v = new Vector2();
@@ -24,10 +26,8 @@ public class EnemyShip extends Ship {
     @Override
     public void update(float delta) {
         super.update(delta);
-//        bulletPos.set(this.pos.x, getBottom()); // стрельба из носа коробля
         if (getBottom() < worldBounds.getBottom()) {
             destroy();
-            explosionSound.play(0.1f);
         }
     }
 
@@ -53,5 +53,14 @@ public class EnemyShip extends Ship {
         this.hp = hp;
         this.reloadInterval = reloadInterval;
         setHeightProportion(height);
+    }
+
+    public boolean isBulletCollision(Bullet bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                || bullet.getLeft() > getRight()
+                || bullet.getBottom() > getTop()
+                || bullet.getTop() < pos.y
+        );
     }
 }

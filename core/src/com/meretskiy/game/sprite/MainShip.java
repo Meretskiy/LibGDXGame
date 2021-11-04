@@ -7,10 +7,11 @@ import com.badlogic.gdx.math.Vector2;
 import com.meretskiy.game.base.Ship;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
+import com.meretskiy.game.pool.ExplosionPool;
 
 public class MainShip extends Ship {
 
-    private static final float RELOAD_INTERVAL = 0.2f;
+    private static final float RELOAD_INTERVAL = 0.5f;
 
     private static final float V_LEN = 0.0001f;
     private static final float SIZE = 0.1f;
@@ -23,9 +24,11 @@ public class MainShip extends Ship {
     private int leftPointer = INVALID_POINTER;
     private int rightPointer = INVALID_POINTER;
 
-    public MainShip(TextureAtlas atlas, BulletPool bulletPool, Sound bulletSound) {
+    public MainShip(TextureAtlas atlas, BulletPool bulletPool, ExplosionPool explosionPool,
+                    Sound bulletSound) {
         super(atlas.findRegion("main_ship"), 1, 2, 2);
         this.bulletPool = bulletPool;
+        this.explosionPool = explosionPool;
         this.bulletRegion = atlas.findRegion("bulletMainShip");
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletPos = new Vector2();
@@ -135,6 +138,15 @@ public class MainShip extends Ship {
                 break;
         }
         return false;
+    }
+
+    public boolean isBulletCollision(Bullet bullet) {
+        return !(
+                bullet.getRight() < getLeft()
+                        || bullet.getLeft() > getRight()
+                        || bullet.getBottom() > pos.y
+                        || bullet.getTop() < getBottom()
+        );
     }
 
     private void moveRight() {
