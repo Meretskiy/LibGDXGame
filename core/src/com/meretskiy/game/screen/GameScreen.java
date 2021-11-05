@@ -12,7 +12,9 @@ import com.meretskiy.game.pool.ExplosionPool;
 import com.meretskiy.game.sprite.Background;
 import com.meretskiy.game.sprite.Bullet;
 import com.meretskiy.game.sprite.EnemyShip;
+import com.meretskiy.game.sprite.GameOverMessage;
 import com.meretskiy.game.sprite.MainShip;
+import com.meretskiy.game.sprite.NewGameButton;
 import com.meretskiy.game.sprite.Star;
 import com.meretskiy.game.util.EnemyEmitter;
 
@@ -26,6 +28,8 @@ public class GameScreen extends BaseScreen {
     private Texture bg;
 
     private Background background;
+    private GameOverMessage gameOverMessage;
+    private NewGameButton newGameButton;
     private Star[] stars;
     private BulletPool bulletPool;
     private ExplosionPool explosionPool;
@@ -53,6 +57,8 @@ public class GameScreen extends BaseScreen {
         enemyPool = new EnemyPool(bulletPool, explosionPool, worldBounds, bulletSound);
         mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
+        gameOverMessage = new GameOverMessage(atlas);
+        newGameButton = new NewGameButton(atlas, mainShip, worldBounds, enemyPool, bulletPool);
     }
 
     @Override
@@ -72,6 +78,8 @@ public class GameScreen extends BaseScreen {
             star.resize(worldBounds);
         }
         mainShip.resize(worldBounds);
+        gameOverMessage.resize(worldBounds);
+        newGameButton.resize(worldBounds);
     }
 
     @Override
@@ -102,12 +110,14 @@ public class GameScreen extends BaseScreen {
     @Override
     public boolean touchDown(Vector2 touch, int pointer, int button) {
         mainShip.touchDown(touch, pointer, button);
+        newGameButton.touchDown(touch, pointer, button);
         return false;
     }
 
     @Override
     public boolean touchUp(Vector2 touch, int pointer, int button) {
         mainShip.touchUp(touch, pointer, button);
+        newGameButton.touchUp(touch, pointer, button);
         return false;
     }
 
@@ -132,7 +142,6 @@ public class GameScreen extends BaseScreen {
         for (EnemyShip enemyShip : enemyShipList) {
             float minDist = mainShip.getWidth();
             if (!enemyShip.isDestroyed() && mainShip.pos.dst(enemyShip.pos) < minDist) {
-//                enemyShip.destroy(explosionSound);
                 enemyShip.destroy();
                 mainShip.damage(enemyShip.getDamage() * 2);
             }
@@ -174,6 +183,9 @@ public class GameScreen extends BaseScreen {
             bulletPool.drawActiveObjects(batch);
             enemyPool.drawActiveObjects(batch);
             mainShip.draw(batch);
+        } else {
+            gameOverMessage.draw(batch);
+            newGameButton.draw(batch);
         }
         explosionPool.drawActiveObjects(batch);
         batch.end();

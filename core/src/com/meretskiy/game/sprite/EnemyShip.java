@@ -63,4 +63,9 @@ public class EnemyShip extends Ship {
                 || bullet.getTop() < pos.y
         );
     }
+
+    @Override
+    public void remove() {
+        super.remove();
+    }
 }

@@ -17,6 +17,8 @@ public class MainShip extends Ship {
     private static final float SIZE = 0.1f;
     private static final float BOTTOM_MARGIN = 0.05f;
     private static final int INVALID_POINTER = -1; // номер пальца
+    protected static final int HP = 100;
+    private static final int DAMAGE = 1;
 
     private boolean pressedLeft;
     private boolean pressedRight;
@@ -33,8 +35,8 @@ public class MainShip extends Ship {
         this.bulletV = new Vector2(0, 0.5f);
         this.bulletPos = new Vector2();
         this.bulletHeight = 0.01f;
-        this.damage = 1;
-        this.hp = 100;
+        this.damage = DAMAGE;
+        this.hp = HP;
         this.v = new Vector2();
         this.v0 = new Vector2(0.5f, 0);
         this.bulletSound = bulletSound;
