@@ -37,7 +37,7 @@ public class MenuScreen extends BaseScreen {
     public void show() {
         super.show();
         atlas = new TextureAtlas("textures/menuAtlas.tpack");
-        bg = new Texture("sci-fi-space.jpeg");
+        bg = new Texture("sci-fi-space2.jpeg");
         background = new Background(bg);
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
