@@ -80,11 +80,6 @@ public class Ship extends Sprite {
         boom();
     }
 
-    @Override
-    public void remove() {
-        super.remove();
-    }
-
     private void shoot() {
         Bullet bullet = bulletPool.obtain();
         bullet.set(this, bulletRegion, bulletPos, bulletV, worldBounds, bulletHeight, damage);
@@ -96,7 +91,4 @@ public class Ship extends Sprite {
         explosion.set(this.pos, getHeight());
     }
 
-    public void setHp(int hp) {
-        this.hp = hp;
-    }
 }

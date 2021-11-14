@@ -43,6 +43,17 @@ public class MainShip extends Ship {
         this.reloadInterval = RELOAD_INTERVAL;
     }
 
+    public void startNewGame() {
+        hp = HP;
+        leftPointer = INVALID_POINTER;
+        rightPointer = INVALID_POINTER;
+        pressedLeft = false;
+        pressedRight = false;
+        stop();
+        pos.x = worldBounds.pos.x;
+        flushDestroy();
+    }
+
     @Override
     public void resize(Rect worldBounds) {
         super.resize(worldBounds);
