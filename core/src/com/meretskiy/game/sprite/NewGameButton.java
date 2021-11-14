@@ -10,7 +10,7 @@ public class NewGameButton extends BaseButton {
     private final GameScreen gameScreen;
 
     private static final float HEIGHT = 0.05f;
-    private static final float PADDING = 0.2f;
+    private static final float TOP_MARGIN = -0.06f;
 
     public NewGameButton(TextureAtlas atlas, GameScreen gameScreen) {
         super(atlas.findRegion("button_new_game"));
@@ -20,7 +20,7 @@ public class NewGameButton extends BaseButton {
     @Override
     public void resize(Rect worldBounds) {
         setHeightProportion(HEIGHT);
-        setBottom(worldBounds.getBottom() + PADDING);
+        setBottom(TOP_MARGIN);
     }
 
     @Override

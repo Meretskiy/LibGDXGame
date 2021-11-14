@@ -6,8 +6,8 @@ import com.meretskiy.game.math.Rect;
 
 public class GameOverMessage extends Sprite {
 
-    private static final float HEIGHT = 0.06f;
-    private static final float PADDING = 0.6f;
+    private static final float HEIGHT = 0.07f;
+    private static final float BOTTOM_MARGIN = 0.01f;
 
     public GameOverMessage(TextureAtlas atlas) {
         super(atlas.findRegion("message_game_over"));
@@ -16,6 +16,6 @@ public class GameOverMessage extends Sprite {
     @Override
     public void resize(Rect worldBounds) {
         setHeightProportion(HEIGHT);
-        setBottom(worldBounds.getBottom() + PADDING);
+        setBottom(BOTTOM_MARGIN);
     }
 }
