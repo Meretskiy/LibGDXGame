@@ -11,6 +11,7 @@ import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
 import com.meretskiy.game.pool.EnemyPool;
 import com.meretskiy.game.pool.ExplosionPool;
+import com.meretskiy.game.pool.KitPool;
 import com.meretskiy.game.sprite.Background;
 import com.meretskiy.game.sprite.Bullet;
 import com.meretskiy.game.sprite.EnemyShip;
@@ -19,6 +20,7 @@ import com.meretskiy.game.sprite.MainShip;
 import com.meretskiy.game.sprite.NewGameButton;
 import com.meretskiy.game.sprite.Star;
 import com.meretskiy.game.util.EnemyEmitter;
+import com.meretskiy.game.util.KitEmitter;
 
 import java.util.List;
 
@@ -33,6 +35,7 @@ public class GameScreen extends BaseScreen {
 
     private TextureAtlas atlas;
     private Texture bg;
+    private Texture kit;
 
     private Background background;
     private GameOverMessage gameOverMessage;
@@ -41,10 +44,12 @@ public class GameScreen extends BaseScreen {
     private BulletPool bulletPool;
     private ExplosionPool explosionPool;
     private EnemyPool enemyPool;
+    private KitPool kitPool;
 
     private MainShip mainShip;
 
     private EnemyEmitter enemyEmitter;
+    private KitEmitter kitEmitter;
 
     private int frags = 0;
     private StringBuilder sbFrags;
@@ -62,6 +67,7 @@ public class GameScreen extends BaseScreen {
         atlas = new TextureAtlas("textures/mainAtlas.tpack");
         bg = new Texture("sci-fi-space2.jpeg");
         background = new Background(bg);
+        kit = new Texture("med_kit.png");
         stars = new Star[STAR_COUNT];
         for (int i = 0; i < stars.length; i++) {
             stars[i] = new Star(atlas);
@@ -69,8 +75,10 @@ public class GameScreen extends BaseScreen {
         bulletPool = new BulletPool();
         explosionPool = new ExplosionPool(atlas, explosionSound);
         enemyPool = new EnemyPool(bulletPool, explosionPool, worldBounds, bulletSound);
+        kitPool = new KitPool(worldBounds, kit);
         mainShip = new MainShip(atlas, bulletPool, explosionPool, laserSound);
         enemyEmitter = new EnemyEmitter(enemyPool, worldBounds, atlas);
+        kitEmitter = new KitEmitter(kitPool, worldBounds, kit);
         gameOverMessage = new GameOverMessage(atlas);
         newGameButton = new NewGameButton(atlas, this);
         frags = 0;
@@ -89,6 +97,7 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllActiveObjects();
         explosionPool.freeAllActiveObjects();
         enemyPool.freeAllActiveObjects();
+        kitPool.freeAllActiveObjects();
     }
 
     @Override
@@ -117,6 +126,7 @@ public class GameScreen extends BaseScreen {
         super.dispose();
         atlas.dispose();
         bg.dispose();
+        kit.dispose();
         bulletPool.dispose();
         explosionPool.dispose();
         laserSound.dispose();
@@ -165,8 +175,10 @@ public class GameScreen extends BaseScreen {
         if (!mainShip.isDestroyed()) {
             bulletPool.updateActiveObjects(delta);
             enemyPool.updateActiveObjects(delta);
+            kitPool.updateActiveObjects(delta);
             mainShip.update(delta);
             enemyEmitter.generate(delta, frags);
+            kitEmitter.generate(frags);
         }
         explosionPool.updateActiveObjects(delta);
     }
@@ -211,6 +223,7 @@ public class GameScreen extends BaseScreen {
         bulletPool.freeAllDestroyed();
         explosionPool.freeAllDestroyed();
         enemyPool.freeAllDestroyed();
+        kitPool.freeAllDestroyed();
     }
 
     private void draw() {
@@ -222,6 +235,7 @@ public class GameScreen extends BaseScreen {
         if (!mainShip.isDestroyed()) {
             bulletPool.drawActiveObjects(batch);
             enemyPool.drawActiveObjects(batch);
+            kitPool.drawActiveObjects(batch);
             mainShip.draw(batch);
         } else {
             gameOverMessage.draw(batch);
