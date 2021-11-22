@@ -178,7 +178,7 @@ public class GameScreen extends BaseScreen {
             kitPool.updateActiveObjects(delta);
             mainShip.update(delta);
             enemyEmitter.generate(delta, frags);
-            kitEmitter.generate(frags);
+            kitEmitter.generate(enemyEmitter.getLevel());
         }
         explosionPool.updateActiveObjects(delta);
     }
