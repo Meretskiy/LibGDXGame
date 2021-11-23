@@ -7,6 +7,7 @@ import com.badlogic.gdx.math.Vector2;
 import com.badlogic.gdx.utils.Align;
 import com.meretskiy.game.base.BaseScreen;
 import com.meretskiy.game.base.Font;
+import com.meretskiy.game.base.Kit;
 import com.meretskiy.game.math.Rect;
 import com.meretskiy.game.pool.BulletPool;
 import com.meretskiy.game.pool.EnemyPool;
@@ -17,6 +18,7 @@ import com.meretskiy.game.sprite.Bullet;
 import com.meretskiy.game.sprite.EnemyShip;
 import com.meretskiy.game.sprite.GameOverMessage;
 import com.meretskiy.game.sprite.MainShip;
+import com.meretskiy.game.sprite.MedKit;
 import com.meretskiy.game.sprite.NewGameButton;
 import com.meretskiy.game.sprite.Star;
 import com.meretskiy.game.util.EnemyEmitter;
@@ -186,6 +188,13 @@ public class GameScreen extends BaseScreen {
     private void checkCollisions() {
         if (mainShip.isDestroyed()) {
             return;
+        }
+        List<MedKit> kitPoolList = kitPool.getActiveObjects();
+        for (MedKit kit : kitPoolList) {
+            if (!kit.isOutside(mainShip)) {
+                kit.destroy();
+                mainShip.setHp(mainShip.getHp() + kit.getPower());
+            }
         }
         List<EnemyShip> enemyShipList = enemyPool.getActiveObjects();
         for (EnemyShip enemyShip : enemyShipList) {

@@ -8,6 +8,7 @@ public class Kit extends Sprite {
     protected Vector2 v;
     protected Vector2 emergingV;
     protected Rect worldBounds;
+    protected int power;
 
     public Kit() {
     }
@@ -19,5 +20,9 @@ public class Kit extends Sprite {
         } else {
             pos.mulAdd(v, delta);
         }
+    }
+
+    public int getPower() {
+        return power;
     }
 }

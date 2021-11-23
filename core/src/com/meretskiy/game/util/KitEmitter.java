@@ -20,7 +20,7 @@ public class KitEmitter {
     private final Vector2 medKitV = new Vector2(0f, -0.2f);
     private final Vector2 emergingV = new Vector2(0f, -0.4f);
 
-    private int currentLevel;
+    private int currentLevel = 1;
 
     public KitEmitter(KitPool kitPool, Rect worldBounds, Texture texture) {
         this.kitPool = kitPool;
@@ -34,7 +34,7 @@ public class KitEmitter {
             currentLevel = level;
             if(kitPool.getActiveObjects().isEmpty()) {
                 MedKit medKit = kitPool.obtain();
-                medKit.set(regions, medKitV, emergingV, MED_KIT_HEIGHT);
+                medKit.set(regions, medKitV, emergingV, MED_KIT_HEIGHT, MED_KIT_POWER);
                 medKit.pos.x = Rnd.nextFloat(
                         worldBounds.getLeft() + medKit.getHalfWidth(),
                         worldBounds.getRight() - medKit.getHalfWidth()
